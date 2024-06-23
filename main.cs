@@ -46,7 +46,7 @@ class Program
                 }
 
                 // They did not enter the correct initial
-                Console.WriteLine ("Error, Invalid Sales Person, please try again.");
+                Console.WriteLine ("intermediate output: error, Invalid sales person selected, please try again.");
                 // Ask them for valid input again
                 initialInput = Console.ReadLine();
             }
@@ -125,7 +125,7 @@ class Program
         ***************************************** */
       
     // We create a placeholder for the total amount of sales
-    int sum = 0;
+    int sumCashMoney = 0;
 
         // We will loop through our dataArray and add the sales to the sum
         for (int i = 0; i < dataArray.GetLength(0); i++)  
@@ -135,12 +135,18 @@ class Program
             int num1 = int.Parse(dataArray[i, 1]);
 
              // using that data we pulled from the array we can add it to the sum
-             sum += num1; // Adding it to the sum gives us a total once all the sales are added
+             sumCashMoney += num1; // Adding it to the sum gives us a total once all the sales are added
 
         }
 
+  // And our free accountant translate that numer into something the audience might understand
+    string formattedAmount1 = sumCashMoney.ToString("C0", CultureInfo.CurrentCulture);
+    // We are converting the currency into a dollar amount with a us capital symbol and commas
+
+
+      
     // This is where the audience learns the total sales
-    Console.WriteLine("Your sum is " + sum);  
+    Console.WriteLine("Your grand total is " + formattedAmount1);  
 
 
 
@@ -176,8 +182,14 @@ class Program
           
      }
 
+
+      // And our free accountant translate that numer into something the audience might understand
+      string formattedAmount2 = highestSale.ToString("C0", CultureInfo.CurrentCulture);
+      // We are converting the currency into a dollar amount with a us capital symbol and commas
+      
+      
      // And now we can use the highestSale int to tell the audience what the highest sale was
-     Console.WriteLine("The highest sale was " + highestSale + " made by " + dataArray[highest, 0]);
+     Console.WriteLine("The highest sale was " + formattedAmount2 + " made by " + dataArray[highest, 0]);
                         // The highest int variable can reference the index of the highest sale 
                         // through its place in the outer most array to pull all the values from 
                         // that dimensions index
