@@ -11,6 +11,9 @@ class Program
     // We create a list to store names here
     List<string> namesList = new List<string>();
 
+    // We create an array to check against bad initials that may get entered
+    char[] initials = { 'D', 'd', 'E', 'e', 'F', 'f' };
+
     // We create a list to store sales here
     List<string> salesList = new List<string>();
 
@@ -24,43 +27,45 @@ class Program
 
 
     // We use a continuous flag in a while loop to keep asking questions
-    while (cont >= 1)
+    while (true)
     {
 
         // Add data to the lists
-         Console.WriteLine("Please enter the sales person's name: ");
+        Console.WriteLine("Please enter the sales person's initial: ");
 
         // We ask the user to input an initial
-         string initialInput = Console.ReadLine();
+        string initialInput = Console.ReadLine();
 
-        // We create a sentinel here
-        int stop_gap = 0;
+        // We convert the letter entered into an array for comparison
+        char firstChar = initialInput.ToCharArray()[0];
 
-        // If we do not enter the correct initial character
-        while (initialInput != "d" && initialInput != "D" && initialInput != "e" && initialInput != "E" && initialInput != "f" && initialInput != "F")
-            {   // We check to see if they want to break the program and see totals
-                if (initialInput == "Z" || initialInput == "z") // If the user enters Z or z
-                {   // Terminate this functions lifespan
-                    stop_gap = 1;
-                    break;
-                }
+        if (initialInput == "Z" || initialInput == "z") // If the user enters Z or z
+        {   // Terminate this while loop
+            break;
+        }
 
-                // They did not enter the correct initial
-                Console.WriteLine ("intermediate output: error, Invalid sales person selected, please try again.");
-                // Ask them for valid input again
-                initialInput = Console.ReadLine();
-            }
+        // We create a bool tell the program if the initial is valid
+        bool found = false;
 
+        // For each initial in the initials Array
+        foreach (char ini in initials)
+        {
+          // If the initial is found in the array
+          if (ini == firstChar)
+          {  // the found boolean will be true
+            found = true;
+          }
+        }
 
-        if (stop_gap == 1) // If they want to stop the program
-            { 
-                break; // end the program and get results
-            }
+        // If found is not true
+        if (!found)
+        { // We tell the user that the initial is invalid
+          Console.WriteLine("intermediate output: error, Invalid sales person selected, please try again : ");
+
+          // We ask the user once again to input an initial
+          initialInput = Console.ReadLine();
+        }
         
-        
-        
-     
-
         // Now we ask them how successful they were in life  
         Console.WriteLine ("Okay Great, now please enter that person's sales:");
 
@@ -79,8 +84,7 @@ class Program
             salesInput = Console.ReadLine();
 
             }
- 
-
+      
       // We add the sales persons initial to the namesList
       namesList.Add(initialInput);
 
@@ -102,7 +106,7 @@ class Program
     int listSize = namesList.Count;
 
     // Using that size we create an array to store the names and sales
-    string[,] dataArray = new string[listSize,2];
+    string[,] dataArray = new string[listSize,3];
 
     // We use a for loop to fill the array with the names and sales
     for (int i = 0; i < listSize; i++)
@@ -112,6 +116,18 @@ class Program
 
         // dataArray i , 1 is the sales of the seller
         dataArray[i, 1] = salesList[i];
+
+        // if they entered D we save their name to the dataArray
+        if (namesList[i] == "D" || namesList[i] == "d")
+          { dataArray[i, 2] = "Danielle"; }
+
+        // if they entered E we save their name to the dataArray
+        if (namesList[i] == "E" || namesList[i] == "e")
+        { dataArray[i, 2] = "Edward"; }
+
+        // if they entered F we save their name to the dataArray
+        if (namesList[i] == "F" || namesList[i] == "f")
+        { dataArray[i, 2] = "Francis"; }
       }
 
 
@@ -146,7 +162,7 @@ class Program
 
       
     // This is where the audience learns the total sales
-    Console.WriteLine("Your grand total is " + formattedAmount1);  
+    Console.WriteLine("Grand Total:" + formattedAmount1);  
 
 
 
@@ -189,7 +205,8 @@ class Program
       
       
      // And now we can use the highestSale int to tell the audience what the highest sale was
-     Console.WriteLine("The highest sale was " + formattedAmount2 + " made by " + dataArray[highest, 0]);
+     Console.WriteLine("\nHighest Sale:" + dataArray[highest, 0]);
+     Console.WriteLine("\nCongratulations " + dataArray[highest, 2] + "!");
                         // The highest int variable can reference the index of the highest sale 
                         // through its place in the outer most array to pull all the values from 
                         // that dimensions index
