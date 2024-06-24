@@ -6,7 +6,6 @@ class Program
 {
   public static void Main(string[] args)
   {
-    int cont = 1; // Continuous flag (1 to start, increments for each salesperson)
 
     // We create a list to store names here
     List<string> namesList = new List<string>();
@@ -63,9 +62,11 @@ class Program
           Console.WriteLine("intermediate output: error, Invalid sales person selected, please try again : ");
 
           // We ask the user once again to input an initial
-          initialInput = Console.ReadLine();
+          // initialInput = Console.ReadLine();
+          continue;
         }
-        
+
+        if (found) {
         // Now we ask them how successful they were in life  
         Console.WriteLine ("Okay Great, now please enter that person's sales:");
 
@@ -89,9 +90,8 @@ class Program
       namesList.Add(initialInput);
 
       // We add the sales persons sales to the salesList
-      salesList.Add(salesInput);
+      salesList.Add(salesInput); }
 
-      cont++; // Increment continuous flag
     }
 
 
